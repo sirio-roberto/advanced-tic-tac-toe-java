@@ -12,29 +12,54 @@ public class Main {
     public static void main(String[] args) {
         String commands;
         do {
-            System.out.print("Input command: ");
-            commands = scanner.nextLine();
-        } while (!InputValidator.areValidCommands(commands));
+            do {
+                System.out.print("Input command: ");
+                commands = scanner.nextLine();
+            } while (!InputValidator.areValidCommands(commands));
 
-        GameBoard board = new GameBoard();
-        System.out.println(board);
+            if (!"exit".equals(commands)) {
+                String[] commandsArray = commands.split(" ");
+                 firstPlayer = commandsArray[1];
+                 secondPlayer = commandsArray[2];
 
-        RobotFactory factory = new RobotFactory(board);
-        Robot robot = factory.generateRobot("easy");
+                GameBoard board = new GameBoard();
+                System.out.println(board);
 
-        while (!board.isOver()) {
-            if (currentPlayer == 'X') {
-                String coordinatesStr;
-                do {
-                    System.out.print("Enter the coordinates: ");
-                    coordinatesStr = scanner.nextLine();
-                } while (!InputValidator.areValidCoordinates(coordinatesStr, board.getFields()));
+                RobotFactory factory = new RobotFactory(board);
 
-                currentPlayer = board.playAndEvaluate(coordinatesStr, currentPlayer);
-            } else {
-                currentPlayer = robot.move(currentPlayer);
+                while (!board.isOver()) {
+                    if (currentPlayer == 'X') {
+                        if ("user".equals(firstPlayer)) {
+                            handleUserMove(board);
+                        } else {
+                            handleRobotMove(factory);
+                        }
+                    } else {
+                        if ("user".equals(secondPlayer)) {
+                            handleUserMove(board);
+                        } else {
+                            handleRobotMove(factory);
+                        }
+                    }
+                }
+                System.out.println();
             }
-        }
+        } while (!"exit".equals(commands));
 
+    }
+
+    private static void handleRobotMove(RobotFactory factory) {
+        Robot robot = factory.generateRobot("easy");
+        currentPlayer = robot.move(currentPlayer);
+    }
+
+    private static void handleUserMove(GameBoard board) {
+        String coordinatesStr;
+        do {
+            System.out.print("Enter the coordinates: ");
+            coordinatesStr = scanner.nextLine();
+        } while (!InputValidator.areValidCoordinates(coordinatesStr, board.getFields()));
+
+        currentPlayer = board.playAndEvaluate(coordinatesStr, currentPlayer);
     }
 }
