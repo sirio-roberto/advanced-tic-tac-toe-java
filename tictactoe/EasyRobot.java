@@ -9,6 +9,8 @@ public class EasyRobot extends Robot {
 
     @Override
     public char move(char player) {
+        System.out.println("Making move level \"easy\"");
+
         Random random = new Random();
         int i;
         int j;
@@ -18,7 +20,6 @@ public class EasyRobot extends Robot {
             j = random.nextInt(3);
         } while (!GameBoard.isEmpty(gameBoard.getFields()[i][j]));
 
-        System.out.println("Making move level \"easy\"");
         // TODO: implement on the latest version to avoid delay when running tests
 //        try {
 //            Thread.sleep(1000);

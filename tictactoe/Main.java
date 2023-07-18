@@ -32,24 +32,25 @@ public class Main {
                         if ("user".equals(firstPlayer)) {
                             handleUserMove(board);
                         } else {
-                            handleRobotMove(factory);
+                            handleRobotMove(factory, firstPlayer);
                         }
                     } else {
                         if ("user".equals(secondPlayer)) {
                             handleUserMove(board);
                         } else {
-                            handleRobotMove(factory);
+                            handleRobotMove(factory, secondPlayer);
                         }
                     }
                 }
+                currentPlayer = 'X';
                 System.out.println();
             }
         } while (!"exit".equals(commands));
 
     }
 
-    private static void handleRobotMove(RobotFactory factory) {
-        Robot robot = factory.generateRobot("easy");
+    private static void handleRobotMove(RobotFactory factory, String difficulty) {
+        Robot robot = factory.generateRobot(difficulty);
         currentPlayer = robot.move(currentPlayer);
     }
 
