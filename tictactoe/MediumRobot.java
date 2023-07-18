@@ -19,17 +19,26 @@ public class MediumRobot extends Robot {
         if (!GameBoard.isEmpty(fields[0][0]) && GameBoard.isEmpty(fields[0][1]) && fields[0][0] == fields[0][2]) {
             return gameBoard.playAndEvaluate(0, 1, player);
         }
+        if (!GameBoard.isEmpty(fields[0][1]) && GameBoard.isEmpty(fields[0][0]) && fields[0][1] == fields[0][2]) {
+            return gameBoard.playAndEvaluate(0, 0, player);
+        }
         if (!GameBoard.isEmpty(fields[1][0]) && GameBoard.isEmpty(fields[1][2]) && fields[1][0] == fields[1][1]) {
             return gameBoard.playAndEvaluate(1, 2, player);
         }
         if (!GameBoard.isEmpty(fields[1][0]) && GameBoard.isEmpty(fields[1][1]) && fields[1][0] == fields[1][2]) {
             return gameBoard.playAndEvaluate(1, 1, player);
         }
+        if (!GameBoard.isEmpty(fields[1][1]) && GameBoard.isEmpty(fields[1][0]) && fields[1][1] == fields[1][2]) {
+            return gameBoard.playAndEvaluate(1, 0, player);
+        }
         if (!GameBoard.isEmpty(fields[2][0]) && GameBoard.isEmpty(fields[2][2]) && fields[2][0] == fields[2][1]) {
             return gameBoard.playAndEvaluate(2, 2, player);
         }
         if (!GameBoard.isEmpty(fields[2][0]) && GameBoard.isEmpty(fields[2][1]) && fields[2][0] == fields[2][2]) {
             return gameBoard.playAndEvaluate(2, 1, player);
+        }
+        if (!GameBoard.isEmpty(fields[2][1]) && GameBoard.isEmpty(fields[2][0]) && fields[2][1] == fields[2][2]) {
+            return gameBoard.playAndEvaluate(2, 0, player);
         }
 
         // check verticals
@@ -39,17 +48,26 @@ public class MediumRobot extends Robot {
         if (!GameBoard.isEmpty(fields[0][0]) && GameBoard.isEmpty(fields[1][0]) && fields[0][0] == fields[2][0]) {
             return gameBoard.playAndEvaluate(1, 0, player);
         }
+        if (!GameBoard.isEmpty(fields[1][0]) && GameBoard.isEmpty(fields[0][0]) && fields[1][0] == fields[2][0]) {
+            return gameBoard.playAndEvaluate(0, 0, player);
+        }
         if (!GameBoard.isEmpty(fields[0][1]) && GameBoard.isEmpty(fields[2][1]) && fields[0][1] == fields[1][1]) {
             return gameBoard.playAndEvaluate(2, 1, player);
         }
         if (!GameBoard.isEmpty(fields[0][1]) && GameBoard.isEmpty(fields[1][1]) && fields[0][1] == fields[2][1]) {
             return gameBoard.playAndEvaluate(1, 1, player);
         }
+        if (!GameBoard.isEmpty(fields[1][1]) && GameBoard.isEmpty(fields[0][1]) && fields[1][1] == fields[2][1]) {
+            return gameBoard.playAndEvaluate(0, 1, player);
+        }
         if (!GameBoard.isEmpty(fields[0][2]) && GameBoard.isEmpty(fields[2][2]) && fields[0][2] == fields[1][2]) {
             return gameBoard.playAndEvaluate(2, 2, player);
         }
         if (!GameBoard.isEmpty(fields[0][2]) && GameBoard.isEmpty(fields[1][2]) && fields[0][2] == fields[2][2]) {
             return gameBoard.playAndEvaluate(1, 2, player);
+        }
+        if (!GameBoard.isEmpty(fields[1][2]) && GameBoard.isEmpty(fields[0][2]) && fields[1][2] == fields[2][2]) {
+            return gameBoard.playAndEvaluate(0, 2, player);
         }
 
         //check diagonals
@@ -59,11 +77,17 @@ public class MediumRobot extends Robot {
         if (!GameBoard.isEmpty(fields[0][0]) && GameBoard.isEmpty(fields[1][1]) && fields[0][0] == fields[2][2]) {
             return gameBoard.playAndEvaluate(1, 1, player);
         }
+        if (!GameBoard.isEmpty(fields[1][1]) && GameBoard.isEmpty(fields[0][0]) && fields[1][1] == fields[2][2]) {
+            return gameBoard.playAndEvaluate(0, 0, player);
+        }
         if (!GameBoard.isEmpty(fields[0][2]) && GameBoard.isEmpty(fields[2][0]) && fields[0][2] == fields[1][1]) {
             return gameBoard.playAndEvaluate(2, 0, player);
         }
         if (!GameBoard.isEmpty(fields[0][2]) && GameBoard.isEmpty(fields[1][1]) && fields[0][2] == fields[2][0]) {
             return gameBoard.playAndEvaluate(1, 1, player);
+        }
+        if (!GameBoard.isEmpty(fields[1][1]) && GameBoard.isEmpty(fields[0][2]) && fields[1][1] == fields[2][0]) {
+            return gameBoard.playAndEvaluate(0, 2, player);
         }
 
         // if the move cannot win or prevent the opponent victory, play a random move
