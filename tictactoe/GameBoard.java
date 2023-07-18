@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class GameBoard {
     private final int SIZE = 3;
-    private char[][] fields;
+    private Character[][] fields;
 
     public GameBoard() {
         startEmptyBoard();
@@ -15,7 +15,7 @@ public class GameBoard {
         startFromInitialState(initialState);
     }
 
-    public char[][] getFields() {
+    public Character[][] getFields() {
         return fields;
     }
 
@@ -37,8 +37,8 @@ public class GameBoard {
     }
 
     private void startEmptyBoard() {
-        fields = new char[SIZE][SIZE];
-        for (char[] row: fields) {
+        fields = new Character[SIZE][SIZE];
+        for (Character[] row: fields) {
             Arrays.fill(row, ' ');
         }
     }
@@ -52,13 +52,43 @@ public class GameBoard {
 
     private char playAndEvaluate(int i, int j, char currentPlayer) {
         play(i, j, currentPlayer);
-        evaluate();
+        evaluate(currentPlayer);
         return switchPlayer(currentPlayer);
     }
 
-    private void evaluate() {
+    private void evaluate(char currentPlayer) {
         System.out.println(this);
-        System.out.println("check game status");
+
+        // check horizontals
+        if (!isEmpty(fields[0][0]) && fields[0][0] == fields[0][1] && fields[0][0] == fields[0][2]) {
+            System.out.println(currentPlayer + " wins");
+        } else if (!isEmpty(fields[1][0]) && fields[1][0] == fields[1][1] && fields[1][0] == fields[1][2]) {
+            System.out.println(currentPlayer + " wins");
+        } else if (!isEmpty(fields[2][0]) && fields[2][0] == fields[2][1] && fields[2][0] == fields[2][2]) {
+            System.out.println(currentPlayer + " wins");
+        }
+        // check horizontals
+        else if (!isEmpty(fields[0][0]) && fields[0][0] == fields[1][0] && fields[0][0] == fields[2][0]) {
+            System.out.println(currentPlayer + " wins");
+        } else if (!isEmpty(fields[0][1]) && fields[0][1] == fields[1][1] && fields[0][1] == fields[2][1]) {
+            System.out.println(currentPlayer + " wins");
+        } else if (!isEmpty(fields[0][2]) && fields[0][2] == fields[1][2] && fields[0][2] == fields[2][2]) {
+            System.out.println(currentPlayer + " wins");
+        }
+        // check diagonals
+        else if (!isEmpty(fields[0][0]) && fields[0][0] == fields[1][1] && fields[0][0] == fields[2][2]) {
+            System.out.println(currentPlayer + " wins");
+        } else if (!isEmpty(fields[0][2]) && fields[0][2] == fields[1][1] && fields[0][2] == fields[2][0]) {
+            System.out.println(currentPlayer + " wins");
+        }
+        // check draw
+        else if (Arrays.stream(fields)
+                .flatMap(Arrays::stream)
+                .noneMatch(GameBoard::isEmpty)) {
+            System.out.println("Draw");
+        } else {
+            System.out.println("Game not finished");
+        }
     }
 
     private void play(int i, int j, char player) {
@@ -74,7 +104,7 @@ public class GameBoard {
         StringBuilder result = new StringBuilder("---------");
         result.append("\n");
 
-        for (char[] row: fields) {
+        for (Character[] row: fields) {
             result.append("| ");
             for (char c: row) {
                 result.append(c).append(" ");

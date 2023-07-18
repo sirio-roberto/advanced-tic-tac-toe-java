@@ -3,7 +3,7 @@ package tictactoe;
 import java.util.Scanner;
 
 public class Main {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
     private static char currentPlayer = 'X';
 
     public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class Main {
                 playerCount--;
             }
         }
-        if (playerCount < 0) {
+        if (playerCount > 0) {
             currentPlayer = 'O';
         }
     }

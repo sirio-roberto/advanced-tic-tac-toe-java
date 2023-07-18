@@ -1,7 +1,7 @@
 package tictactoe;
 
 public class InputValidator {
-    public static boolean areValidCoordinates(String coordinatesStr, char[][] fields) {
+    public static boolean areValidCoordinates(String coordinatesStr, Character[][] fields) {
         if (coordinatesStr == null || coordinatesStr.isBlank()) {
             System.out.println("Please type the coordinates");
             return false;
