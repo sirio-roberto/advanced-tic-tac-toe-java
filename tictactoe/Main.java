@@ -6,14 +6,19 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static char currentPlayer = 'X';
 
+    private static String firstPlayer;
+    private static String secondPlayer;
+
     public static void main(String[] args) {
-//        System.out.print("Enter the cells: ");
-//        String initialState = scanner.nextLine();
+        String commands;
+        do {
+            System.out.print("Input command: ");
+            commands = scanner.nextLine();
+        } while (!InputValidator.areValidCommands(commands));
 
         GameBoard board = new GameBoard();
         System.out.println(board);
 
-//        setCurrentPlayer(initialState);
         RobotFactory factory = new RobotFactory(board);
         Robot robot = factory.generateRobot("easy");
 
@@ -31,19 +36,5 @@ public class Main {
             }
         }
 
-    }
-
-    private static void setCurrentPlayer(String initialState) {
-        int playerCount = 0;
-        for (char c: initialState.toCharArray()) {
-            if (c == 'X') {
-                playerCount++;
-            } else if (c == 'O') {
-                playerCount--;
-            }
-        }
-        if (playerCount > 0) {
-            currentPlayer = 'O';
-        }
     }
 }
