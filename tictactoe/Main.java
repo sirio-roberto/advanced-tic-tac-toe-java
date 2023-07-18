@@ -7,21 +7,30 @@ public class Main {
     private static char currentPlayer = 'X';
 
     public static void main(String[] args) {
-        System.out.print("Enter the cells: ");
-        String initialState = scanner.nextLine();
+//        System.out.print("Enter the cells: ");
+//        String initialState = scanner.nextLine();
 
-        GameBoard board = new GameBoard(initialState);
+        GameBoard board = new GameBoard();
         System.out.println(board);
 
-        String coordinatesStr;
-        do {
-            System.out.print("Enter the coordinates: ");
-            coordinatesStr = scanner.nextLine();
-        } while (!InputValidator.areValidCoordinates(coordinatesStr, board.getFields()));
+//        setCurrentPlayer(initialState);
+        RobotFactory factory = new RobotFactory(board);
+        Robot robot = factory.generateRobot("easy");
 
-        setCurrentPlayer(initialState);
+        while (!board.isOver()) {
+            if (currentPlayer == 'X') {
+                String coordinatesStr;
+                do {
+                    System.out.print("Enter the coordinates: ");
+                    coordinatesStr = scanner.nextLine();
+                } while (!InputValidator.areValidCoordinates(coordinatesStr, board.getFields()));
 
-        currentPlayer = board.playAndEvaluate(coordinatesStr, currentPlayer);
+                currentPlayer = board.playAndEvaluate(coordinatesStr, currentPlayer);
+            } else {
+                currentPlayer = robot.move(currentPlayer);
+            }
+        }
+
     }
 
     private static void setCurrentPlayer(String initialState) {

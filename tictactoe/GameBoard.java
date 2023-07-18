@@ -3,6 +3,8 @@ package tictactoe;
 import java.util.Arrays;
 
 public class GameBoard {
+
+    private boolean over = false;
     private final int SIZE = 3;
     private Character[][] fields;
 
@@ -17,6 +19,10 @@ public class GameBoard {
 
     public Character[][] getFields() {
         return fields;
+    }
+
+    public boolean isOver() {
+        return over;
     }
 
     private void startFromInitialState(String initialState) {
@@ -50,13 +56,14 @@ public class GameBoard {
         return playAndEvaluate(i - 1, j - 1, currentPlayer);
     }
 
-    private char playAndEvaluate(int i, int j, char currentPlayer) {
+    public char playAndEvaluate(int i, int j, char currentPlayer) {
         play(i, j, currentPlayer);
         evaluate(currentPlayer);
         return switchPlayer(currentPlayer);
     }
 
     private void evaluate(char currentPlayer) {
+        over = true;
         System.out.println(this);
 
         // check horizontals
@@ -86,8 +93,9 @@ public class GameBoard {
                 .flatMap(Arrays::stream)
                 .noneMatch(GameBoard::isEmpty)) {
             System.out.println("Draw");
-        } else {
-            System.out.println("Game not finished");
+        }
+        else {
+            over = false;
         }
     }
 
