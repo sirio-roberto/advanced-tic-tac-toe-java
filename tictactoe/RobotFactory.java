@@ -11,6 +11,7 @@ public class RobotFactory {
         return switch (difficulty) {
             case "easy" -> new EasyRobot(gameBoard);
             case "medium" -> new MediumRobot(gameBoard);
+            case "hard" -> new HardRobot(gameBoard);
             default -> null;
         };
     }

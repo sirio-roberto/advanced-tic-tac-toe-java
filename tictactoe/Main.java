@@ -6,9 +6,6 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static char currentPlayer = 'X';
 
-    private static String firstPlayer;
-    private static String secondPlayer;
-
     public static void main(String[] args) {
         String commands;
         do {
@@ -19,8 +16,8 @@ public class Main {
 
             if (!"exit".equals(commands)) {
                 String[] commandsArray = commands.split(" ");
-                 firstPlayer = commandsArray[1];
-                 secondPlayer = commandsArray[2];
+                String firstPlayer = commandsArray[1];
+                String secondPlayer = commandsArray[2];
 
                 GameBoard board = new GameBoard();
                 System.out.println(board);
