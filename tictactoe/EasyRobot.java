@@ -20,12 +20,11 @@ public class EasyRobot extends Robot {
             j = random.nextInt(3);
         } while (!GameBoard.isEmpty(gameBoard.getFields()[i][j]));
 
-        // TODO: implement on the latest version to avoid delay when running tests
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return gameBoard.playAndEvaluate(i, j, player);
     }
 }

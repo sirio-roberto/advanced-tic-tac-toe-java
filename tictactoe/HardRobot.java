@@ -1,7 +1,5 @@
 package tictactoe;
 
-import java.util.Random;
-
 public class HardRobot extends Robot {
     public HardRobot(GameBoard gameBoard) {
         super(gameBoard);
@@ -10,6 +8,9 @@ public class HardRobot extends Robot {
     @Override
     public char move(char player) {
         System.out.println("Making move level \"hard\"");
+        if (gameBoard.isFirstMove()) {
+            return gameBoard.playAndEvaluate(1, 1, player);
+        }
 
         Character[][] fields = gameBoard.getFields();
 
@@ -32,12 +33,11 @@ public class HardRobot extends Robot {
             }
         }
 
-        // TODO: implement on the latest version to avoid delay when running tests
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return gameBoard.playAndEvaluate(x, y, player);
     }
 
@@ -58,8 +58,9 @@ public class HardRobot extends Robot {
         }
         Character[][] fields = gameBoard.getFields();
 
+        int bestScore;
         if (isMaximizing) {
-            int bestScore = Integer.MIN_VALUE;
+            bestScore = Integer.MIN_VALUE;
             for (int i = 0; i < fields.length; i++) {
                 for (int j = 0; j < fields.length; j++) {
                     if (GameBoard.isEmpty(fields[i][j])) {
@@ -70,9 +71,8 @@ public class HardRobot extends Robot {
                     }
                 }
             }
-            return bestScore;
         } else {
-            int bestScore = Integer.MAX_VALUE;
+            bestScore = Integer.MAX_VALUE;
             for (int i = 0; i < fields.length; i++) {
                 for (int j = 0; j < fields.length; j++) {
                     if (GameBoard.isEmpty(fields[i][j])) {
@@ -83,8 +83,8 @@ public class HardRobot extends Robot {
                     }
                 }
             }
-            return bestScore;
         }
+        return bestScore;
     }
 
     private char switchPlayer(char currentPlayer) {

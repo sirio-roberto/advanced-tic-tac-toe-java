@@ -90,7 +90,7 @@ public class MediumRobot extends Robot {
             return gameBoard.playAndEvaluate(0, 2, player);
         }
 
-        // if the move cannot win or prevent the opponent victory, play a random move
+        // if the move cannot win or avoid the opponent victory, play a random move
         Random random = new Random();
         int i;
         int j;
@@ -100,12 +100,11 @@ public class MediumRobot extends Robot {
             j = random.nextInt(3);
         } while (!GameBoard.isEmpty(gameBoard.getFields()[i][j]));
 
-        // TODO: implement on the latest version to avoid delay when running tests
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return gameBoard.playAndEvaluate(i, j, player);
     }
 }

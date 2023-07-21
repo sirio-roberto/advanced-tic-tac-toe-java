@@ -1,11 +1,11 @@
 package tictactoe;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class GameBoard {
 
     private boolean over = false;
-    private final int SIZE = 3;
     private Character[][] fields;
 
     public GameBoard() {
@@ -25,6 +25,7 @@ public class GameBoard {
     }
 
     private void startEmptyBoard() {
+        int SIZE = 3;
         fields = new Character[SIZE][SIZE];
         for (Character[] row: fields) {
             Arrays.fill(row, ' ');
@@ -97,6 +98,12 @@ public class GameBoard {
 
     private char switchPlayer(char currentPlayer) {
         return currentPlayer == 'X' ? 'O' : 'X';
+    }
+
+    public boolean isFirstMove() {
+        return Arrays.stream(fields)
+                .flatMap(Stream::of)
+                .allMatch(GameBoard::isEmpty);
     }
 
     @Override
