@@ -52,7 +52,7 @@ public class HardRobot extends Robot {
     }
 
     private int minimax(GameBoard gameBoard, boolean isMaximizing, char currentPlayer) {
-        String result = gameBoard.evaluate(currentPlayer);
+        String result = gameBoard.evaluate();
         if (result != null) {
             return getResultScore(result, currentPlayer);
         }
