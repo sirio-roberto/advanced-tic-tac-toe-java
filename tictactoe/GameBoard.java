@@ -12,30 +12,12 @@ public class GameBoard {
         startEmptyBoard();
     }
 
-    public GameBoard(String initialState) {
-        this();
-        startFromInitialState(initialState);
-    }
-
     public Character[][] getFields() {
         return fields;
     }
 
     public boolean isOver() {
         return over;
-    }
-
-    private void startFromInitialState(String initialState) {
-        int k = 0;
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                char currentChar = initialState.charAt(k);
-                if (!isEmpty(currentChar)) {
-                    fields[i][j] = currentChar;
-                }
-                k++;
-            }
-        }
     }
 
     public static boolean isEmpty(char c) {
@@ -58,45 +40,55 @@ public class GameBoard {
 
     public char playAndEvaluate(int i, int j, char currentPlayer) {
         play(i, j, currentPlayer);
-        evaluate(currentPlayer);
+        String result = evaluate(currentPlayer);
+        System.out.println(this);
+        printResult(result);
         return switchPlayer(currentPlayer);
     }
 
-    private void evaluate(char currentPlayer) {
+    private void printResult(String result) {
+        if (result != null) {
+            if ("Draw".equals(result)) {
+                System.out.println(result);
+            } else {
+                System.out.println(result + " wins");
+            }
+        }
+    }
+
+    public String evaluate(char currentPlayer) {
         over = true;
-        System.out.println(this);
 
         // check horizontals
         if (!isEmpty(fields[0][0]) && fields[0][0] == fields[0][1] && fields[0][0] == fields[0][2]) {
-            System.out.println(currentPlayer + " wins");
+            return String.valueOf(currentPlayer);
         } else if (!isEmpty(fields[1][0]) && fields[1][0] == fields[1][1] && fields[1][0] == fields[1][2]) {
-            System.out.println(currentPlayer + " wins");
+            return String.valueOf(currentPlayer);
         } else if (!isEmpty(fields[2][0]) && fields[2][0] == fields[2][1] && fields[2][0] == fields[2][2]) {
-            System.out.println(currentPlayer + " wins");
+            return String.valueOf(currentPlayer);
         }
         // check horizontals
         else if (!isEmpty(fields[0][0]) && fields[0][0] == fields[1][0] && fields[0][0] == fields[2][0]) {
-            System.out.println(currentPlayer + " wins");
+            return String.valueOf(currentPlayer);
         } else if (!isEmpty(fields[0][1]) && fields[0][1] == fields[1][1] && fields[0][1] == fields[2][1]) {
-            System.out.println(currentPlayer + " wins");
+            return String.valueOf(currentPlayer);
         } else if (!isEmpty(fields[0][2]) && fields[0][2] == fields[1][2] && fields[0][2] == fields[2][2]) {
-            System.out.println(currentPlayer + " wins");
+            return String.valueOf(currentPlayer);
         }
         // check diagonals
         else if (!isEmpty(fields[0][0]) && fields[0][0] == fields[1][1] && fields[0][0] == fields[2][2]) {
-            System.out.println(currentPlayer + " wins");
+            return String.valueOf(currentPlayer);
         } else if (!isEmpty(fields[0][2]) && fields[0][2] == fields[1][1] && fields[0][2] == fields[2][0]) {
-            System.out.println(currentPlayer + " wins");
+            return String.valueOf(currentPlayer);
         }
         // check draw
         else if (Arrays.stream(fields)
                 .flatMap(Arrays::stream)
                 .noneMatch(GameBoard::isEmpty)) {
-            System.out.println("Draw");
+            return "Draw";
         }
-        else {
-            over = false;
-        }
+        over = false;
+        return null;
     }
 
     private void play(int i, int j, char player) {
