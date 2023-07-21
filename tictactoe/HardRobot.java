@@ -21,7 +21,7 @@ public class HardRobot extends Robot {
             for (int j = 0; j < fields.length; j++) {
                 if (GameBoard.isEmpty(fields[i][j])) {
                     fields[i][j] = player;
-                    int score = minimax(gameBoard, false, switchPlayer(player));
+                    int score = minimax(gameBoard, false, player);
                     fields[i][j] = ' ';
                     if (score > bestScore) {
                         bestScore = score;
@@ -64,7 +64,7 @@ public class HardRobot extends Robot {
                 for (int j = 0; j < fields.length; j++) {
                     if (GameBoard.isEmpty(fields[i][j])) {
                         fields[i][j] = currentPlayer;
-                        int score = minimax(gameBoard, false, switchPlayer(currentPlayer));
+                        int score = minimax(gameBoard, false, currentPlayer);
                         fields[i][j] = ' ';
                         bestScore = Integer.max(bestScore, score);
                     }
@@ -76,7 +76,7 @@ public class HardRobot extends Robot {
             for (int i = 0; i < fields.length; i++) {
                 for (int j = 0; j < fields.length; j++) {
                     if (GameBoard.isEmpty(fields[i][j])) {
-                        fields[i][j] = currentPlayer;
+                        fields[i][j] = switchPlayer(currentPlayer);
                         int score = minimax(gameBoard, true, currentPlayer);
                         fields[i][j] = ' ';
                         bestScore = Integer.min(bestScore, score);
